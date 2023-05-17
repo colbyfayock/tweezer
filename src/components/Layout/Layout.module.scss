@@ -1,0 +1,17 @@
+.layout {
+
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  overflow: hidden;
+  min-height: 100vh;
+  font-family: var(--font-inter);
+
+  &[data-navigation="false"] {
+    grid-template-rows: 1fr auto;
+  }
+
+}
+
+.main {
+  padding: 0 0 3em;
+}

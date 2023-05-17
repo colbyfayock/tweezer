@@ -1,0 +1,34 @@
+@import "@/styles/settings/_settings";
+
+.button {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  color: black;
+  font-size: 1em;
+  font-weight: $text-weight-black;
+  font-family: inherit;
+  text-align: center;
+  text-decoration: none;
+  text-transform: uppercase;
+  background-color: $color-primary;
+  padding: .8em 1.2em;
+  border: solid 2px $color-primary;
+  border-radius: 0;
+  cursor: pointer;
+
+  &:hover {
+    background-color: lighten($color-primary, 8);
+  }
+
+  &:active {
+    background-color: darken($color-primary, 8);
+  }
+
+  &:disabled {
+    color: rgba(white, 0.5);
+    background-color: lighten($color-primary, 8);
+    cursor: default;
+    opacity: .6;
+  }
+}

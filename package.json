@@ -12,7 +12,11 @@
     "eslint": "8.40.0",
     "eslint-config-next": "13.4.2",
     "next": "13.4.2",
+    "next-cloudinary": "^4.10.0",
     "react": "18.2.0",
-    "react-dom": "18.2.0"
+    "react-dom": "18.2.0",
+    "react-icons": "^4.8.0",
+    "react-webcam": "^7.0.1",
+    "sass": "^1.62.1"
   }
 }

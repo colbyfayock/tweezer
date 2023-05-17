@@ -1,0 +1,224 @@
+@import "@/styles/settings/_settings";
+
+@keyframes spin { 
+  100% { 
+    transform: rotate(360deg); 
+  } 
+}
+
+.camera {
+}
+
+.stageContainer {
+  display: flex;
+  justify-content: center;
+  position: relative;
+  width: 100%;
+  height: auto;
+  background-color: black;
+}
+
+.stage {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  width: 100%;
+  height: 100%;
+  margin: auto;
+
+  &[data-is-active-webcam="false"][data-is-error-webcam="false"],
+  &[data-img-loading="true"] {
+    &:before {
+      display: block;
+      position: absolute;
+      top: 0;
+      left: 0;
+      z-index: 1;
+      content: "";
+      width: 100%;
+      height: 100%;
+    }
+  }
+
+  &[data-img-loading="true"] {
+    img {
+      opacity: 0.5;
+    }
+  }
+
+  video,
+  img {
+    display: block;
+    position: relative;
+    z-index: 2;
+    width: auto;
+    max-width: 100%;
+    height: auto;
+    max-height: 100%;
+  }
+}
+
+.stageError {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+
+  p {
+    max-width: 20em;
+    text-align: center;
+  }
+}
+
+.stageErrorName {
+  color: orange;
+  font-size: 1.4em;
+  margin: 0 0 1em;
+}
+
+.stageErrorMessage {
+  color: $color-gray-light;
+  margin: 0;
+}
+
+.controls {
+
+  padding: 0 .5em;
+  margin-top: 1em;
+
+  ul {
+    position: relative;
+    height: 4em;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+}
+
+.controlsControl {
+
+  display: block;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  width: 4em;
+  height: 4em;
+  margin: auto;
+
+  button {
+    position: relative;
+    width: 100%;
+    height: 100%;
+  }
+
+}
+
+.controlsCapture {
+  
+  button {
+    
+    border: none;
+    background-color: transparent;
+    border-radius: 100%;
+    border: solid 3px white;
+
+    &:after {
+      display: block;
+      position: absolute;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      content: '';
+      width: 3.2em;
+      height: 3.2em;
+      background-color: white;
+      border-radius: 3.2em;
+      margin: auto;
+    }
+
+  }
+
+}
+
+.controlsPick,
+.controlsReset,
+.controlsPerspective {
+
+  padding: .8em;
+  
+  button {
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: none;
+    background-color: transparent;
+    border-radius: .5em;
+    border: solid 3px white;
+
+    svg {
+      color: white;
+      font-size: 1.5em;
+    }
+
+  }
+
+}
+
+.controlsPick {
+  right: auto;
+}
+
+.controlsReset,
+.controlsPerspective {
+  left: auto;
+}
+
+.controlsPerspective,
+.controlsReset {
+  
+  button {
+    border-radius: 100%;
+  }
+
+}
+
+.controlsUpload {
+
+  &:after {
+    display: block;
+    position: absolute;
+    top: -5%;
+    left: -5%;
+    z-index: 0;
+    content: '';
+    width: 110%;
+    height: 110%;
+    background: linear-gradient($color-primary, $color-secondary);
+    border-radius: 100%;
+    filter: blur(8px);
+    animation: spin 2s linear infinite;
+  }
+  
+  button {
+    
+    position: relative;
+    z-index: 1;
+    border: none;
+    background-color: white;
+    border-radius: 100%;
+
+    svg {
+      font-size: 2em;
+    }
+
+  }
+
+}

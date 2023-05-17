@@ -1,0 +1,124 @@
+@import "@/styles/settings/_settings";
+
+.sectionHeader {
+
+  display: flex;
+  align-items: center;
+  position: relative;
+  font-size: 1.2em;
+  text-transform: uppercase;
+  
+  span {
+    flex-shrink: 0;
+    margin-right: 0.5em;
+  }
+
+  &:after {
+    display: block;
+    content: '';
+    width: 100%;
+    height: 3px;
+    background-color: $color-primary;
+  }
+
+}
+
+.heroSection {
+  margin-top: 0;
+}
+
+.heroContainer {
+  position: relative;
+  padding: 3em 1em;
+  overflow: hidden;
+}
+
+.heroImage {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 0;
+  width: 100%;
+  height: auto;
+  opacity: .5;
+}
+
+.heroContent {
+  position: relative;
+  z-index: 1;
+  text-align: center;
+}
+
+.heroTitle,
+.heroTagline {
+  text-transform: uppercase;
+  text-align: center;
+}
+
+.heroTitle {
+  font-size: 3em;
+  font-weight: 900;
+  line-height: .8;
+  margin: 0;
+}
+
+.heroTagline {
+  font-weight: 700;
+  margin: 1.4em 0 0;
+}
+
+.heroButton {
+  margin-top: 1.5em;
+}
+
+/**
+ * Example
+ */
+
+.example {
+  position: relative;
+  color: rgba(white, .9);
+}
+
+.exampleImage {
+  width: 70%;
+  margin-right: 30%;
+}
+
+.exampleContent {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 60%;
+  height: 100%;
+  color: black;
+  font-size: .8em;
+}
+
+.exampleTags {
+
+  display: flex;
+  flex-wrap: wrap;
+  gap: .5em;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+
+  li {
+    font-size: .9em;
+    font-weight: 600;
+    background-color: $color-primary;
+    padding: .3em .5em;
+  }
+
+}
+
+.exampleText {
+  line-height: 1.2;
+  background-color: $color-secondary;
+  padding: .3em .5em;
+  margin-top: 1em;
+}

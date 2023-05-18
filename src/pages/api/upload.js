@@ -18,6 +18,8 @@ export default async function handler(req) {
   const formData = new FormData();
 
   const parameters = {
+    auto_tagging: '.6',
+    categorization: 'google_tagging',
     folder: process.env.NEXT_PUBLIC_CLOUDINARY_UPLOADS_FOLDER,
     // Must be last
     timestamp: Date.now(),

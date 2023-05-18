@@ -27,7 +27,7 @@ const DEFAULT_IMG_STATE = {
   error: false,
 };
 
-const Camera = ({ className }) => {
+const Camera = ({ className, onSrcChange }) => {
   const imgRef = useRef();
   const filepickerRef = useRef();
   const [imgState, setImgState] = useState(DEFAULT_IMG_STATE);
@@ -36,8 +36,6 @@ const Camera = ({ className }) => {
   const router = useRouter();
 
   const { ref, image, state, error, facingMode, capture, reset, switchCamera, onUserMedia, onUserMediaError } = useCamera();
-
-  console.log('facingMode', facingMode)
 
   const src = selectedSrc || image;
 
@@ -76,9 +74,15 @@ const Camera = ({ className }) => {
   }, []);
 
   useEffect(() => {
+    if ( typeof onSrcChange === 'function' ) {
+      onSrcChange(src);
+    }
+  }, [src])
+
+  useEffect(() => {
     if ( !upload ) return;
     const id = upload.public_id.replace(`${process.env.NEXT_PUBLIC_CLOUDINARY_UPLOADS_FOLDER}/`, '');
-    router.push(`/compose?id=${id}`);
+    router.push(`/compose?id=${id}&tags=${upload.tags.join(',')}`);
   }, [upload]);
 
   function handleOnPick(e) {

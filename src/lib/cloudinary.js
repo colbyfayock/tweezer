@@ -1,4 +1,4 @@
-const RESOURCE_INCLUDED_KEYS = ["height", "public_id", "resource_type", "secure_url", "width"];
+const RESOURCE_INCLUDED_KEYS = ["height", "info", "public_id", "resource_type", "secure_url", "tags", "width"];
 
 /**
  * sanitizeResource

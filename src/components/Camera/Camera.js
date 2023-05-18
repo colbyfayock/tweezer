@@ -86,6 +86,7 @@ const Camera = ({ className, onSrcChange }) => {
   }, [upload]);
 
   function handleOnPick(e) {
+    console.log('asdf')
     filepickerRef.current.click();
   }
 

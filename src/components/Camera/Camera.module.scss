@@ -80,7 +80,7 @@
 
 .controls {
 
-  padding: 0 1.25em;
+  padding: 0 .5em;
   margin-top: 1em;
 
   ul {
@@ -95,23 +95,20 @@
 
 .controlsControl {
 
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  display: block;
   position: absolute;
   top: 0;
   bottom: 0;
   right: 0;
   left: 0;
+  width: 4em;
+  height: 4em;
   margin: auto;
 
   button {
-    width: 4em;
-    height: 4em;
-  }
-
-  button {
     position: relative;
+    width: 100%;
+    height: 100%;
   }
 
 }
@@ -148,22 +145,23 @@
 .controlsReset,
 .controlsPerspective {
 
+  padding: .8em;
   
   button {
 
     display: flex;
     justify-content: center;
     align-items: center;
-    font-size: .6em;
     border: none;
     background-color: transparent;
     border-radius: .5em;
+    padding: .5em;
     border: solid 3px white;
-    margin: 0;
 
     svg {
       color: white;
-      font-size: 2em;
+      width: 100%;
+      font-size: 3em;
     }
 
   }
@@ -184,6 +182,14 @@
   
   button {
     border-radius: 100%;
+  }
+
+}
+
+.controlsPerspective {
+
+  button {
+    padding: .1em;
   }
 
 }

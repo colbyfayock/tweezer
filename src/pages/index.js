@@ -9,15 +9,8 @@ import Button from '@/components/Button';
 import styles from '@/styles/Home.module.scss'
 
 export default function Home() {
-
-
   return (
     <Layout navigation={false}>
-      <Head>
-        <title>Tweezer</title>
-        <meta name="description" content="Tweezer" />
-      </Head>
-
       <Section className={styles.heroSection}>
         <Container className={styles.heroContainer}>
           <CldImage

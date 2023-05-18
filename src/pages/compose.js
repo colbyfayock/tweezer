@@ -107,7 +107,6 @@ export default function Compose() {
     <Layout navigation={false}>
       <Head>
         <title>Compose - Tweezer</title>
-        <meta name="description" content="Tweezer" />
       </Head>
 
       <Section className={styles.heroSection}>

@@ -18,8 +18,7 @@ export default function Capture() {
   return (
     <Layout navigation={false}>
       <Head>
-        <title>Upload - Tweezer</title>
-        <meta name="description" content="Tweezer" />
+        <title>Capture - Tweezer</title>
       </Head>
 
       <Section className={styles.cameraSection}>

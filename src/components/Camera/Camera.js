@@ -81,12 +81,24 @@ const Camera = ({ className, onSrcChange }) => {
 
   useEffect(() => {
     if ( !upload ) return;
-    const id = upload.public_id.replace(`${process.env.NEXT_PUBLIC_CLOUDINARY_UPLOADS_FOLDER}/`, '');
-    router.push(`/compose?id=${id}&tags=${upload.tags.join(',')}`);
+    
+    const params = {
+      id: upload.public_id.replace(`${process.env.NEXT_PUBLIC_CLOUDINARY_UPLOADS_FOLDER}/`, ''),
+      tags: upload.tags.join(',')
+    }
+
+    const people = upload.info.detection?.object_detection.data.coco.tags.person;
+
+    if ( people ) {
+      params.people = people.length;
+    }
+
+    const paramsString = Object.entries(params).map(([key, value]) => `${key}=${value}`).join('&');
+
+    router.push(`/compose?${paramsString}`);
   }, [upload]);
 
   function handleOnPick(e) {
-    console.log('asdf')
     filepickerRef.current.click();
   }
 

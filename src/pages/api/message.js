@@ -3,7 +3,20 @@ export const config = {
 }
 
 export default async function handler(req, context) {
-  const { tags } = await req.json();
+  const { tags, people } = await req.json();
+
+  const prompt = [
+    'You social media influencer that generates Tweets',
+    'Given a set of keywords that identify objects or qualities of a photo, you create fun, uplifting, exciting Tweets messages that someone can share with the photo.',
+    'The voice of the Tweet should be young and energetic.',
+    'The Tweet should be in the first person talking about their experience.',
+    `The keywords are: ${tags}`,
+    people === 1 && 'The photo includes 1 person.',
+    people > 1 && `The photo includes ${people} people.`,
+    'Generate 1 short sentence Tweet with a maximum of 200 characters.',
+    'The response should include nothing else other than the Tweet.',
+    'The respones should not include the following characters: ".',
+  ].filter(p => !!p);
 
   const completion = await fetch('https://api.openai.com/v1/chat/completions', {
     method: 'POST',
@@ -12,23 +25,7 @@ export default async function handler(req, context) {
       messages: [
         {
           role: 'user',
-          content: `
-            You are a Tweet generator.
-
-            Given a set of keywords that identify objects or qualities of a photo, you create fun, uplifting, exciting Tweets messages that someone can share with the photo.
-
-            The keywords are: ${tags}
-
-            Generate 1 short sentence Tweet with a maximum of 200 characters.
-
-            The voice of the Tweet should be young and energetic.
-            
-            The Tweet should be in the first person talking about their experience.
-
-            The response should include nothing else other than the Tweet.
-
-            Only alphanumeric characters, emojis, and hashtags.
-          `
+          content: prompt.join(' ')
         }
       ],
       stream: true,

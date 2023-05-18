@@ -26,6 +26,7 @@ export default function Compose() {
   });
 
   const tags = router.query.tags?.split(',');
+  const people = parseInt(router.query.people)
 
   useEffect(() => {
     if ( !imgSrc || !tags ) return;
@@ -42,7 +43,8 @@ export default function Compose() {
       const response = await fetch('/api/message', {
         method: 'POST',
         body: JSON.stringify({
-          tags
+          tags,
+          people
         }),
         headers: {
           'Content-Type': 'application/json',
@@ -87,7 +89,7 @@ export default function Compose() {
         setMessage(undefined);
       }
     })();
-  }, [router.query.id, router.query.tags])
+  }, [router.query.id, router.query.tags, router.query.people])
 
   /**
    * handleOnCopy

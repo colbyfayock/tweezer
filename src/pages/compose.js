@@ -1,8 +1,9 @@
 import { useEffect, useState } from 'react';
 import Head from 'next/head'
 import { useRouter } from 'next/router';
-import { CldImage } from 'next-cloudinary';
+import { CldImage, getCldImageUrl } from 'next-cloudinary';
 import { createParser } from 'eventsource-parser';
+import { FaCopy, FaExternalLinkSquareAlt } from 'react-icons/fa';
 
 import { CAMERA_HEIGHT, CAMERA_WIDTH } from '@/data/media';
 
@@ -11,9 +12,7 @@ import Section from '@/components/Section';
 import Container from '@/components/Container';
 import Button from '@/components/Button';
 
-
 import styles from '@/styles/Compose.module.scss'
-
 
 export default function Compose() {
   const router = useRouter();
@@ -21,18 +20,24 @@ export default function Compose() {
   const [message, setMessage] = useState(false);
   
   const imgSrc = `${process.env.NEXT_PUBLIC_CLOUDINARY_UPLOADS_FOLDER}/${router.query.id}`;
+  const imgUrl = getCldImageUrl({
+    src: imgSrc,
+    format: 'jpg'
+  });
+
+  const tags = router.query.tags?.split(',');
 
   useEffect(() => {
-    if ( !router.query.id || !router.query.tags ) return;
-
-    const tags = router.query.tags.split(',');
+    if ( !imgSrc || !tags ) return;
 
     const controller = new AbortController();
     const { signal } = controller;
+    let parser;
 
     (async function run() {
       
       setIsLoading(true);
+      setMessage(undefined);
 
       const response = await fetch('/api/message', {
         method: 'POST',
@@ -65,7 +70,7 @@ export default function Compose() {
         }
       }
   
-      const parser = createParser(onParse)
+      parser = createParser(onParse)
   
       while (true) {
         const { value, done } = await reader.read();
@@ -78,10 +83,23 @@ export default function Compose() {
 
       return () => {
         controller.abort();
+        parser.reset();
         setMessage(undefined);
       }
     })();
   }, [router.query.id, router.query.tags])
+
+  /**
+   * handleOnCopy
+   */
+
+  async function handleOnCopy() {
+    try {
+      window.navigator.clipboard.writeText(message);
+    } catch(e) {
+      console.log('e', e)
+    }
+  }
 
   return (
     <Layout navigation={false}>
@@ -103,22 +121,56 @@ export default function Compose() {
         </Container>
       </Section>
 
-      <Section>
-        <Container>
-          <p className="text-center">{ message }</p>
+      <Section className={styles.messageSection}>
+        <Container className={styles.messageContainer}>
+          {message && (
+            <p className="text-center">
+              { message }
+            </p>
+          )}
+          {!message && (
+            <p className={`text-center ${styles.messageLoading}`}>
+              Working on something special...
+            </p>
+          )}
+          {message && !isLoading && (
+            <p className={`text-center ${styles.messageCopy}`}>
+              <button onClick={handleOnCopy}>
+                <span><FaCopy /></span>
+                Copy Message
+              </button>
+              <a href={imgUrl} download="TweezerImage.jpg" target="_blank">
+                <span><FaExternalLinkSquareAlt /></span>
+                Open Photo
+              </a>
+            </p>
+          )}
+          
         </Container>
       </Section>
 
       <Section>
         <Container>
-          <h2 className={styles.sectionHeader}><span>Compose</span></h2>
-          <p className="text-center">Automatically generate your message based on what&apos;s in the photo with AI.</p>
+          <h2 className={styles.sectionHeader}><span>Tags</span></h2>
+          <p className="text-center">
+            These are the tags found by that were used to generate your tweet.
+          </p>
+          <ul className={styles.tagsTags}>
+            {tags?.map(tag => {
+              return (
+                <li key={tag}>{ tag }</li>
+              )
+            })}
+          </ul>
+          <p className="text-center">
+            <a href="https://cloudinary.com/documentation/google_auto_tagging_addon">Learn More</a>
+          </p>
         </Container>
       </Section>
 
       <Section>
         <Container>
-          <h2 className={styles.sectionHeader}><span>Or Want a New Look?</span></h2>
+          <h2 className={styles.sectionHeader}><span>Want a New Look?</span></h2>
           <p className="text-center">
             <Button href="/capture">Try a New Photo</Button>
           </p>

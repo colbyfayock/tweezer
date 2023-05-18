@@ -18,8 +18,9 @@ export default async function handler(req) {
   const formData = new FormData();
 
   const parameters = {
-    auto_tagging: '.6',
+    auto_tagging: 0.6,
     categorization: 'google_tagging',
+    // detection: 'adv_face',
     folder: process.env.NEXT_PUBLIC_CLOUDINARY_UPLOADS_FOLDER,
     // Must be last
     timestamp: Date.now(),
@@ -41,6 +42,7 @@ export default async function handler(req) {
     method: 'POST',
     body: formData
   }).then(r => r.json());
+  console.log('response', response)
 
   return new Response(JSON.stringify(sanitizeResource(response)), {
     status: 200

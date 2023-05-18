@@ -26,6 +26,8 @@ export default async function handler(req, context) {
             The Tweet should be in the first person talking about their experience.
 
             The response should include nothing else other than the Tweet.
+
+            Only alphanumeric characters, emojis, and hashtags.
           `
         }
       ],

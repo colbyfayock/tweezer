@@ -2,7 +2,7 @@ export const config = {
   runtime: 'edge'
 }
 
-export default async function handler(req, context) {
+export default async function handler(req) {
   const { tags, people } = await req.json();
 
   const prompt = [

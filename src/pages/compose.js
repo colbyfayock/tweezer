@@ -22,6 +22,10 @@ export default function Compose() {
   const imgSrc = `${process.env.NEXT_PUBLIC_CLOUDINARY_UPLOADS_FOLDER}/${router.query.id}`;
   const imgUrl = getCldImageUrl({
     src: imgSrc,
+    width: CAMERA_HEIGHT,
+    height: CAMERA_WIDTH,
+    crop: 'fill',
+    gravity: 'auto',
     format: 'jpg'
   });
 

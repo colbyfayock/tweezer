@@ -1,3 +1,11 @@
 # Tweezer
 
-Because I couldn't come up with a better name.
+Post generator for the masses.
+
+## 🧐 What's Inside?
+
+* Next.js
+* Cloudinary
+* OpenAI
+
+## 🚀 Getting Started

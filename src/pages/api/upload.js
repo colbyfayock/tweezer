@@ -21,7 +21,7 @@ export default async function handler(req) {
   const parameters = {
     auto_tagging: 0.6,
     categorization: 'google_tagging',
-    detection: 'coco_v1',
+    detection: 'coco',
     folder: process.env.NEXT_PUBLIC_CLOUDINARY_UPLOADS_FOLDER,
   }
 
@@ -38,13 +38,24 @@ export default async function handler(req) {
   formData.append('timestamp', timestamp);
   formData.append('signature', paramsHash);
 
-  const response = await fetch(`https://api.cloudinary.com/v1_1/${process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME}/image/upload`, {
-    method: 'POST',
-    body: formData
-  }).then(r => r.json());
+  try {
+    const response = await fetch(`https://api.cloudinary.com/v1_1/${process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME}/image/upload`, {
+      method: 'POST',
+      body: formData
+    }).then(r => r.json());
 
-  return new Response(JSON.stringify(sanitizeResource(response)), {
-    status: 200
-  })
+    if ( response.error ) {
+      throw new Error(response.error?.message);
+    }
+
+    return new Response(JSON.stringify(sanitizeResource(response)), {
+      status: 200
+    })
+  } catch(e) {
+    console.log('e', e)
+    return new Response(JSON.stringify({ error: e.message }), {
+      status: 500
+    })
+  }
 }
 

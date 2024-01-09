@@ -33,6 +33,7 @@ const Camera = ({ className, onSrcChange }) => {
   const [imgState, setImgState] = useState(DEFAULT_IMG_STATE);
   const [selectedSrc, setSelectedSrc] = useState();
   const [upload, setUpload] = useState();
+  console.log('upload', upload)
   const router = useRouter();
 
   const { ref, image, state, error, facingMode, capture, reset, switchCamera, onUserMedia, onUserMediaError } = useCamera();
@@ -157,6 +158,8 @@ const Camera = ({ className, onSrcChange }) => {
       method: 'POST',
       body: formData
     }).then(r => r.json())
+
+    console.log('response', response)
 
     setUpload(response);
   }
